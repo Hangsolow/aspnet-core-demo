@@ -1,0 +1,19 @@
+include: 
+  - project: 'architects/pipelines'
+    ref: master
+    file: '/.gitlab-pipeline-skeleton.yml'
+compiling:
+  stage: code-compile
+  script:
+    - export DOCKER_REGISTRY_REPO="${REGISTRY}/${CI_PROJECT_PATH}"
+    - export DOCKER_TAG="${CI_COMMIT_SHA:0:7}"
+    - docker-compose build --pull
+unit-test:
+  script:
+    - export DOCKER_REGISTRY_REPO="${REGISTRY}/${CI_PROJECT_PATH}"
+    - export DOCKER_TAG="${CI_COMMIT_SHA:0:7}"
+    - docker-compose run test
+  artifacts:
+    reports:
+      junit:
+        testresults/*.xml
