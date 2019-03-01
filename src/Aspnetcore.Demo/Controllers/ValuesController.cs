@@ -10,6 +10,7 @@ namespace Aspnetcore.Demo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiConventionType(typeof(DefaultApiConventions))]
     public class ValuesController : ControllerBase
     {
         public ValuesController(IOptions<ApiOptions> options)
@@ -20,7 +21,6 @@ namespace Aspnetcore.Demo.Controllers
         private ApiOptions Options { get; }
         // GET api/values
         [HttpGet]
-        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
         public ActionResult<IEnumerable<ApiOptions>> Get([FromServices] IOptionsSnapshot<ApiOptions> optionsSnapshot)
         {
             return new [] { optionsSnapshot.Value, Options };

@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
   test:
-    image: ${DOCKER_REGISTRY_REPO:-aspnetcoredemo}:test
+    image: ${DOCKER_REGISTRY_REPO:-aspnetcoredemo}:${DOCKER_TAG:-1.0}-test
     build:
         context: .
         dockerfile: Dockerfile
